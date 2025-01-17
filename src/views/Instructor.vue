@@ -20,7 +20,7 @@
             <td><input name="hws" type="number" id="hws"  required  v-model="grade.hws"></td>
             <td><input name="exam" type="number" id="exam"  required v-model="grade.exam "></td>
             <td><input name="examfeedback" type="textarea" id="examfeedback" required v-model="grade.examfeedback"></td>
-            <td><input name="final" type="number" id="final" required v-model="grade.final "></td> 
+            <td class="final">{{grade.hws + grade.exam}}</td> 
           </tr>
           </tbody>
           </table>
@@ -69,5 +69,9 @@ export default {
 input{
   width: 100px;
   text-align: center
+}
+.final{
+  background-color: rgb(195, 152, 236);
+  font-size: 10px;
 }
 </style>
