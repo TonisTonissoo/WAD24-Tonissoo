@@ -20,13 +20,18 @@
             <td>{{ grade.studentlevel}}</td>
             <td>{{ grade.hws}}</td>
             <td>{{ grade.exam}}</td>
-            <td class="red" v-if="grade.final<=50||
+            <td @click="showFeedback(grade.id)"
+            class="red" v-if="grade.final<=50||
             grade.exam<=20||grade.hws<=20">
             {{ grade.final}}</td>
             <td class="green" v-else>{{ grade.final}}</td>
           </tr>
           </tbody>
           </table>
+    </div>
+    <div v-if="selectedFeedBack" class="feed-box">
+      <h3>Exam feedback:</h3>
+      <p>{{ selectedFeedBack }}</p>
     </div>
   </div>
 </template>
@@ -37,6 +42,7 @@ export default {
   data() {
     return {
       grades: [],
+      selectedFeedBack: null
     };
   },
   methods: {
@@ -46,6 +52,19 @@ export default {
         .then((data) => (this.grades = data))
         .catch((err) => console.log(err.message));
   },
+  showFeedback(gradeID) {
+    const grade = this.grades.find((a)=>a.id === gradeID)
+    if (grade){
+      if (grade.examfeedback){
+        this.selectedFeedBack = grade.examfeedback
+      } else {
+        this.selectedFeedBack = "No feedback available"
+      }
+    } else {
+      this.selectedFeedBack = "No feedback available"
+    }
+
+  }
   },
   mounted() {
     this.fetchRecords();
@@ -85,6 +104,14 @@ th, td {
 .green{
   background-color: green;
 }
-
+.feed-box{
+  background: #f971ce;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  padding: 20px 20px;
+  margin: auto;
+  width: 90%;
+  display: flex;
+}
 
 </style>
