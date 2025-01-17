@@ -52,7 +52,20 @@ export default {
 </script>
 
 <style scoped>
-
+h1 {
+  font-size: 20px;
+}
+th {
+  background: rgb(122, 148, 168);
+}
+td {
+  background: rgb(138, 208, 255);
+}
+th, td {
+  font-size: 15px;
+  margin-bottom: 5px;
+  padding: 8px 10px;
+}
 .container {
   background: #d5d7d8;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
