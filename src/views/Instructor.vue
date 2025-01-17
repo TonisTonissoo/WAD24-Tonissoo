@@ -20,7 +20,10 @@
             <td><input name="hws" type="number" id="hws"  required  v-model="grade.hws"></td>
             <td><input name="exam" type="number" id="exam"  required v-model="grade.exam "></td>
             <td><input name="examfeedback" type="textarea" id="examfeedback" required v-model="grade.examfeedback"></td>
-            <td class="final">{{grade.hws + grade.exam}}</td> 
+            <td class="final">{{grade.hws + grade.exam}}</td>
+            <td>
+              <button @click="updateButton(grade.id, grade.hws, grade.exam)" class="button">update</button>
+            </td>       
           </tr>
           </tbody>
           </table>
@@ -43,7 +46,25 @@ export default {
         .then((response) => response.json())
         .then((data) => (this.grades = data))
         .catch((err) => console.log(err.message));
-  },
+    },
+    updateButton(gradeID, hw, ex){
+      fetch(`http://localhost:3000/api/grades/${gradeID}`,{
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({hws: hw, exam: ex}),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        const updatedGrade = data.grade;
+        gradeIndex = this.grades.findIndex((c) => c.id === updatedGrade.id);
+        if (gradeIndex !== -1){
+          this.grades[gradeIndex] = updatedGrade;
+        }
+      })
+      .catch((err)=>console.log(err.message))
+    },
   },
   mounted() {
     this.fetchRecords();
@@ -60,7 +81,7 @@ export default {
   margin-top: 30px;
   padding: 10px 20px;
   margin: auto;
-  width: 80%;
+  width: 90%;
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -73,5 +94,9 @@ input{
 .final{
   background-color: rgb(195, 152, 236);
   font-size: 10px;
+}
+.button{
+  background-color: rgb(195, 152, 236);
+  border-radius: 5px;
 }
 </style>
