@@ -1,13 +1,31 @@
 <template>
-<div>
-<h3> Students grades </h3>
+  <div>
+<h3> Students grades  </h3>
 
-
-<div class="container">
-  <!-- Table go here -->
-
+<!-- Task 1 -->
+    <div class="container">
+          <table>
+          <thead>
+          <tr>
+            <th>St.Code</th>
+            <th>St.Level</th>
+            <th>Homeworks</th>
+            <th>Exam</th>
+            <th>Final grade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="item" v-for="grade in grades" :key="grade.id">
+            <td>{{ grade.studentcode}}</td>
+            <td>{{ grade.studentlevel}}</td>
+            <td>{{ grade.hws}}</td>
+            <td>{{ grade.exam}}</td>
+            <td>{{ grade.final}}</td>
+          </tr>
+          </tbody>
+          </table>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
