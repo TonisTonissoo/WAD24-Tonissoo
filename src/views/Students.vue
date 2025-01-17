@@ -20,7 +20,10 @@
             <td>{{ grade.studentlevel}}</td>
             <td>{{ grade.hws}}</td>
             <td>{{ grade.exam}}</td>
-            <td>{{ grade.final}}</td>
+            <td class="red" v-if="grade.final<=50||
+            grade.exam<=20||grade.hws<=20">
+            {{ grade.final}}</td>
+            <td class="green" v-else>{{ grade.final}}</td>
           </tr>
           </tbody>
           </table>
@@ -75,6 +78,12 @@ th, td {
   width: 90%;
   display: flex;
   justify-content: center;
+}
+.red{
+  background-color: red;
+}
+.green{
+  background-color: green;
 }
 
 
